@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Countries{% endblock %}
+    {% block main %}
+        {% for country in countries.response %}
+            <ul>
+                <li>{{ country.name }} <img src="{{ country.flag }}" alt="country's flag" height="20px"></li>
+            </ul>
+        {% endfor %}
+    {% endblock %}
