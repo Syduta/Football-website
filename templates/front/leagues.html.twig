@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Leagues{% endblock %}
+    {% block main %}
+        {% for league in leagues.response %}
+            <ul>
+                <li>ID : {{ league.league.id }} | NAME :{{ league.league.name }} | TYPE :{{ league.league.type }} <img src="{{ league.league.logo }}" alt="league's logo" height="20px"></li>
+                <li>{{ league.country.name }} <img src="{{ league.country.flag }}" height="20px"></li>
+                {%  for season in league.seasons %}
+                <li>YEAR :{{ season.year }} | START :{{ season.start }} | END :{{ season.end }} | CURRENT :{{ season.current }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endblock %}

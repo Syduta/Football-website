@@ -23,4 +23,24 @@ class FrontController extends AbstractController
             'countries'=>$countries
         ]);
     }
+
+    #[Route('/leagues', name: 'leagues')]
+    public function showLeagues(FootApi $footApi)
+    {
+        $leagues= $footApi->getLeagues();
+        dump($leagues);
+        return $this->render('front/leagues.html.twig',[
+            'leagues'=>$leagues
+        ]);
+    }
+
+    #[Route('/seasons', name: 'seasons')]
+    public function showSeasons(FootApi $footApi)
+    {
+        $seasons= $footApi->getSeasons();
+        dump($seasons);
+        return $this->render('front/seasons.html.twig',[
+            'seasons'=>$seasons
+        ]);
+    }
 }
