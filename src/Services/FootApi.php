@@ -49,4 +49,17 @@ class FootApi extends AbstractController {
             ]);
         return $response->toArray();
     }
+
+    public function getTeams($leagueId, $year)
+    {
+        $response = $this->httpClient->request(
+            'GET',
+            "https://v3.football.api-sports.io/teams?league=.$leagueId.'&season='.$year",
+            ['headers'=>
+                [
+                    'x-rapidapi-host' => 'v3.football.api-sports.io',
+                    'x-rapidapi-key' => $this->getParameter('app.api_key')            ]
+            ]);
+        return $response->toArray();
+    }
 }

@@ -43,4 +43,14 @@ class FrontController extends AbstractController
             'seasons'=>$seasons
         ]);
     }
+
+    #[Route('/teams/{leagueId}/{year}', name: 'teams')]
+    public function showTeams(FootApi $footApi)
+    {
+        $teams= $footApi->getTeams();
+        dump($teams);
+        return $this->render('front/teams.html.twig',[
+            'teams'=>$teams
+        ]);
+    }
 }
