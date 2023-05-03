@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Services\FootApi;
+use ContainerSCOX6yI\getFootApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,12 +46,22 @@ class FrontController extends AbstractController
     }
 
     #[Route('/teams/{leagueId}/{year}', name: 'teams')]
-    public function showTeams(FootApi $footApi)
+    public function showTeams($leagueId, $year, FootApi $footApi)
     {
-        $teams= $footApi->getTeams();
+        $teams = $footApi->getTeams($leagueId, $year);
         dump($teams);
         return $this->render('front/teams.html.twig',[
             'teams'=>$teams
+        ]);
+    }
+
+    #[Route('/team-stats/{leagueId}/{teamId}/{year}',name: 'team-stats')]
+    public function showTeamStats($leagueId, $teamId, $year, FootApi $footApi)
+    {
+        $stats = $footApi->getTeamStats($leagueId, $teamId,  $year);
+        dump($stats);
+        return $this->render('front/team-stats.html.twig',[
+            'stats'=>$stats
         ]);
     }
 }

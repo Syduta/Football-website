@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
     {% block title %}Teams{% endblock %}
     {% block main %}
-        <p>teams</p>
+        {% for team in teams.response %}
+            <ul>
+                <li>{{ team.team.name }} founded in {{ team.team.founded }} <img src="{{ team.team.logo }}" alt="team's logo" height="20px"> </li>
+                <p>plays in {{ team.venue.name }} on a {{ team.venue.surface }} surface</p>
+                <img src="{{ team.venue.image }}" alt="team's stadium" height="60px">
+            </ul>
+        {% endfor %}
     {% endblock %}
