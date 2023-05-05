@@ -3,4 +3,9 @@
     {% block main %}
         <h1>{{ stats.response.team.name }} <img src="{{ stats.response.team.logo }}" alt="team's logo" height="40px"></h1>
         <p>statistics in {{ stats.response.league.name }} for the {{ stats.response.league.season }} season :</p>
+
+        <div style="height: 400px; width: 400px">
+            {{ render_chart(chart) }}
+        </div>
+
     {% endblock %}

@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Services\FootApi;
-use ContainerSCOX6yI\getFootApiService;
+use App\Services\Charts;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class FrontController extends AbstractController
 {
@@ -56,12 +57,15 @@ class FrontController extends AbstractController
     }
 
     #[Route('/team-stats/{leagueId}/{teamId}/{year}',name: 'team-stats')]
-    public function showTeamStats($leagueId, $teamId, $year, FootApi $footApi)
+    public function showTeamStats($leagueId, $teamId, $year, FootApi $footApi, Charts $charts)
     {
         $stats = $footApi->getTeamStats($leagueId, $teamId,  $year);
+        $chart = $charts->chartMatchs();
         dump($stats);
+        dump($chart);
         return $this->render('front/team-stats.html.twig',[
-            'stats'=>$stats
+            'stats'=>$stats,
+            'chart'=>$chart
         ]);
     }
 }
