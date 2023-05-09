@@ -5,7 +5,10 @@
         <p>statistics in {{ stats.response.league.name }} for the {{ stats.response.league.season }} season :</p>
 
         <div style="height: 400px; width: 400px">
-            {{ render_chart(chart) }}
+            {{ render_chart(chartMatchs) }}
+        </div>
+        <div style="height: 400px; width: 400px">
+            {{ render_chart(chartGoals) }}
         </div>
 
     {% endblock %}

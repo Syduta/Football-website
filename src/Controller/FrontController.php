@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Services\FootApi;
 use App\Services\Charts;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
@@ -59,13 +60,15 @@ class FrontController extends AbstractController
     #[Route('/team-stats/{leagueId}/{teamId}/{year}',name: 'team-stats')]
     public function showTeamStats($leagueId, $teamId, $year, FootApi $footApi, Charts $charts)
     {
-        $stats = $footApi->getTeamStats($leagueId, $teamId,  $year);
-        $chart = $charts->chartMatchs();
-        dump($stats);
-        dump($chart);
+        $stats = $footApi->getTeamStats($leagueId, $teamId, $year);
+        $chartMatchs = $charts->chartMatchs($leagueId, $teamId, $year, $footApi);
+        $chartGoals = $charts->chartGoals($leagueId, $teamId, $year, $footApi);
+        dump($stats['response']);
+        dump($chartMatchs);
         return $this->render('front/team-stats.html.twig',[
             'stats'=>$stats,
-            'chart'=>$chart
+            'chartMatchs'=>$chartMatchs,
+            'chartGoals'=>$chartGoals
         ]);
     }
 }

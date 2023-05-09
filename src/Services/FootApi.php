@@ -73,6 +73,8 @@ class FootApi extends AbstractController {
                     'x-rapidapi-host' => 'v3.football.api-sports.io',
                     'x-rapidapi-key' => $this->getParameter('app.api_key')            ]
             ]);
+
         return $response->toArray();
+
     }
 }
