@@ -6,6 +6,7 @@
                 <li>{{ team.team.name }} founded in {{ team.team.founded }} <img src="{{ team.team.logo }}" alt="team's logo" height="20px"> </li>
                 <p>plays in {{ team.venue.name }} on a {{ team.venue.surface }} surface</p>
                 <img src="{{ team.venue.image }}" alt="team's stadium" height="60px">
+                <button><a href="{{ path('team-stats',{'leagueId':teams.parameters.league, 'teamId':team.team.id, 'year':teams.parameters.season}) }}">Show Stats</a></button>
             </ul>
         {% endfor %}
     {% endblock %}

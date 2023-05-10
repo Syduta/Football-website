@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Team{% endblock %}
+    {% block main %}
+        <h2>{{ squad.response.0.team.name }} <img src="{{ squad.response.0.team.logo }}"></h2>
+        <h3>Goalkeepers :</h3>
+            {% for player in squad.response.0.players %}
+                {% if player.position is same as('Goalkeeper') %}
+                    <div class="player-container">
+                        <ul>
+                            <li>{{ player.name }}
+                                <img src="{{ player.photo }}">
+                                <p>Age : {{ player.age }} years old</p>
+                                <p>Number : {{ player.number }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        <h3>Defenders :</h3>
+            {% for player in squad.response.0.players %}
+                {% if player.position is same as('Defender') %}
+                    <div class="player-container">
+                        <ul>
+                            <li>{{ player.name }}
+                                <img src="{{ player.photo }}">
+                                <p>Age : {{ player.age }} years old</p>
+                                <p>Number : {{ player.number }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        <h3>Midfielders :</h3>
+            {% for player in squad.response.0.players %}
+                {% if player.position is same as('Midfielder') %}
+                    <div class="player-container">
+                        <ul>
+                            <li>{{ player.name }}
+                                <img src="{{ player.photo }}">
+                                <p>Age : {{ player.age }} years old</p>
+                                <p>Number : {{ player.number }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        <h3>Attackers :</h3>
+            {% for player in squad.response.0.players %}
+                {% if player.position is same as('Attacker') %}
+                    <div class="player-container">
+                        <ul>
+                            <li>{{ player.name }}
+                                <img src="{{ player.photo }}">
+                                <p>Age : {{ player.age }} years old</p>
+                                <p>Number : {{ player.number }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+    {% endblock %}

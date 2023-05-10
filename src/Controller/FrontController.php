@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Services\FootApi;
 use App\Services\Charts;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class FrontController extends AbstractController
 {
@@ -31,7 +29,7 @@ class FrontController extends AbstractController
     public function showLeagues(FootApi $footApi)
     {
         $leagues= $footApi->getLeagues();
-        dump($leagues);
+        dump($leagues['response']);
         return $this->render('front/leagues.html.twig',[
             'leagues'=>$leagues
         ]);
@@ -50,7 +48,7 @@ class FrontController extends AbstractController
     #[Route('/teams/{leagueId}/{year}', name: 'teams')]
     public function showTeams($leagueId, $year, FootApi $footApi)
     {
-        $teams = $footApi->getTeams($leagueId, $year);
+        $teams = $footApi->getTeamsFromLeague($leagueId, $year);
         dump($teams);
         return $this->render('front/teams.html.twig',[
             'teams'=>$teams
@@ -63,12 +61,21 @@ class FrontController extends AbstractController
         $stats = $footApi->getTeamStats($leagueId, $teamId, $year);
         $chartMatchs = $charts->chartMatchs($leagueId, $teamId, $year, $footApi);
         $chartGoals = $charts->chartGoals($leagueId, $teamId, $year, $footApi);
+        $chartBooked = $charts->chartBooked($leagueId, $teamId, $year, $footApi);
         dump($stats['response']);
-        dump($chartMatchs);
         return $this->render('front/team-stats.html.twig',[
             'stats'=>$stats,
             'chartMatchs'=>$chartMatchs,
-            'chartGoals'=>$chartGoals
+            'chartGoals'=>$chartGoals,
+            'chartBooked'=>$chartBooked,
         ]);
+    }
+
+    #[Route('/team-squad/{teamId}', name: 'team-squad')]
+    public function showSquad($teamId , FootApi $footApi){
+        $squad = $footApi->getSquads($teamId);
+        dump($squad);
+        return $this->render('front/team-squad.html.twig',
+        ['squad'=>$squad]);
     }
 }

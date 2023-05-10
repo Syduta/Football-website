@@ -46,11 +46,59 @@ class Charts extends AbstractController {
                 [
                     'label'=>'Goals',
                     'backgroundColor' => [
-                        'rgb(255, 99, 132)',
+                        'rgb(228, 24, 24)',
                         'rgb(54, 162, 235)'
                     ],
                     'borderColor' => 'rgb(255, 99, 132)',
                     'data'=>[$scored,$concede]
+                ]
+            ]
+        ]);
+        return $chart;
+    }
+
+    public function chartBooked($leagueId, $teamId, $year, FootApi $footApi){
+        $stats = $footApi->getTeamStats($leagueId, $teamId, $year);
+        $labels = ['0-15','16-30','31-45','46-60','61-75','76-90','91+'];
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart->setData([
+            'labels'=>$labels,
+            'datasets'=>[
+                [
+                    'label'=>'Total number of yellow cards',
+                    'backgroundColor' => [
+                        'yellow'
+                    ],
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data'=>[
+                        $stats['response']['cards']['yellow']['0-15']['total'],
+                        $stats['response']['cards']['yellow']['16-30']['total'],
+                        $stats['response']['cards']['yellow']['31-45']['total'],
+                        $stats['response']['cards']['yellow']['46-60']['total'],
+                        $stats['response']['cards']['yellow']['61-75']['total'],
+                        $stats['response']['cards']['yellow']['76-90']['total'],
+                        $stats['response']['cards']['yellow']['91-105']['total']
+                    ],
+                    'fill'=>false,
+                    'tension'=>0.1
+                ],
+                [
+                    'label' => 'Total number of red cards',
+                    'backgroundColor' => [
+                        'red'
+                    ],
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => [
+                        $stats['response']['cards']['red']['0-15']['total'],
+                        $stats['response']['cards']['red']['16-30']['total'],
+                        $stats['response']['cards']['red']['31-45']['total'],
+                        $stats['response']['cards']['red']['46-60']['total'],
+                        $stats['response']['cards']['red']['61-75']['total'],
+                        $stats['response']['cards']['red']['76-90']['total'],
+                        $stats['response']['cards']['red']['91-105']['total']
+                    ],
+                    'fill' => false,
+                    'tension' => 0.1
                 ]
             ]
         ]);
