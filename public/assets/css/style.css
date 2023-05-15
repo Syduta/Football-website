@@ -1,0 +1,13 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    background-color: #2B3348;
+}
+
+.nav-link{
+    color: #B59C48;
+}

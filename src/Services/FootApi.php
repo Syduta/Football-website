@@ -90,4 +90,18 @@ class FootApi extends AbstractController {
 
         return $response->toArray();
     }
+
+    public function getRanks($year, $leagueId){
+        $response = $this->httpClient->request(
+            'GET',
+            "https://v3.football.api-sports.io/fixtures/rounds?season=$year&league=$leagueId&current=true",
+            ['headers'=>
+                [
+                    'x-rapidapi-host' => 'v3.football.api-sports.io',
+                    'x-rapidapi-key' => $this->getParameter('app.api_key')
+                ]
+            ]);
+
+        return $response->toArray();
+    }
 }

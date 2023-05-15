@@ -78,4 +78,11 @@ class FrontController extends AbstractController
         return $this->render('front/team-squad.html.twig',
         ['squad'=>$squad]);
     }
+
+    #[Route('/ranking/{year}/{leagueId}', name: 'ranking')]
+    public function showRanking($year, $leagueId, FootApi $footApi){
+        $rank = $footApi->getRanks($year, $leagueId);
+        dump($rank);
+        return $this->render('front/ranking.html.twig',['rank'=>$rank]);
+    }
 }

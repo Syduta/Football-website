@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Ranking{% endblock %}
+    {% block main %}
+        {% for ranking in rank.response %}
+            <p>{{ ranking }}</p>
+        {% endfor %}
+    {% endblock %}
